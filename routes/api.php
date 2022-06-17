@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\EmailVerificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::get('test', fn() => response()->json(['hello' => 'world']));
+    Route::get('test', fn() => response()->json(['hello' => 'world'])); // TODO: just test function
+
+//    Email verification API
+    Route::post('emila/verify/{id}', [EmailVerificationController::class, 'verify'])
+        ->name('emailVerification.verify');
+    Route::post('email/resend', [EmailVerificationController::class, 'resend']);
 });

@@ -28,6 +28,8 @@ class AuthController extends Controller
                 'password' => bcrypt($request->get('password')),
             ]);
 
+            $user->sendApiEmailVerificationNotification();
+
             return response()->json('', 204);
         }
 
@@ -51,7 +53,7 @@ class AuthController extends Controller
         ], 403);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         Auth::logout();
 
